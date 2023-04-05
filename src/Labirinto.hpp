@@ -9,6 +9,7 @@ class Labirinto
 {
   private:
     string **labirinto;
+    bool **verificador;
     int linha, coluna, tamLabirinto, numLabirinto;
     int vidas, passos, itensPegos, perigos, sacola;
 
@@ -36,6 +37,10 @@ class Labirinto
     void atualizarArquivoAuxiliar();
     void atualizarSegundoArquivoAuxiliar();
 
+    void criandoArquivoVerificador();
+    void atualizarArquivoVerificador();
+    void atualizarSegundoArquivoVerificador();
+
     void obtendoPosicaoInicial();
     void obtendoPosicaoAleatoria();
     void verificandoParedes(int linha, int coluna);
@@ -44,6 +49,7 @@ class Labirinto
     void caminhandoLabirinto();
     void verificandoVida();
     void verificandoSacola();
-    int verificarPasso(int newLinha, int newColuna);
+    bool verificarPasso(int newLinha, int newColuna);
+    int verificarCasasInexploradas();
 };
 #endif
