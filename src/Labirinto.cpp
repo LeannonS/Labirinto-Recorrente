@@ -65,6 +65,13 @@ void Labirinto::criandoLabirinto()
   {
     this->labirinto[i] = new string[this->tamLabirinto];
   }
+
+  this->verificador = new bool*[this->tamLabirinto];
+  
+  for (int i = 0; i < this->tamLabirinto; i++)
+  {
+    this->verificador[i] = new bool[this->tamLabirinto];
+  }
 }
 
 void Labirinto::deletandoLabirinto()
@@ -74,12 +81,20 @@ void Labirinto::deletandoLabirinto()
     delete[] this->labirinto[i];
   }
   delete[] this->labirinto;
+  
+for (int i = 0; i < this->tamLabirinto; i++)
+  {
+    delete[] this->verificador[i];
+  }
+  delete[] this->verificador;
 }
 
 void Labirinto::apagarArquivos()
 {
   remove("arquivoAuxiliar.txt");
   remove("segundoArquivoAuxiliar.txt");
+  remove("arquivoVerificador.txt");
+  remove("segundoArquivoVerificador.txt");
   
   exit(1);
 }
@@ -116,6 +131,36 @@ void Labirinto::criandoArquivoAuxiliar()
   arqAux.close();
 }
 
+void Labirinto::criandoArquivoVerificador()
+{
+  ofstream arqVerificador;
+  ifstream arq;
+  char ch;
+  string line;
+
+  arq.open("input.data");
+  if(!arq.is_open())
+  {
+    cout << "Erro na abertura do arquivo: input.data!!!" << endl;
+    exit(1);
+  }
+  arqVerificador.open("arquivoVerificador.txt");
+
+  getline(arq, line);
+  arq >> ch;
+  while(arq)
+  {
+    arq >> ch;
+    arqVerificador << 0;
+    arqVerificador << " ";
+  }
+  
+  arq.close();
+  arqVerificador.close();
+  arqVerificador.open("segundoArquivoVerificador.txt");
+  arqVerificador.close();
+}
+
 void Labirinto::atualizarArquivoAuxiliar()
 {
   ofstream arq;
@@ -128,6 +173,7 @@ void Labirinto::atualizarArquivoAuxiliar()
   if(!arqAux.is_open())
   {
     cout << "Erro na abertura do arquivo: segundoArquivoAuxiliar.txt!!!" << endl;
+    deletandoLabirinto();
     apagarArquivos();
   }
 
@@ -142,6 +188,33 @@ void Labirinto::atualizarArquivoAuxiliar()
   arqAux.close();
 }
 
+void Labirinto::atualizarArquivoVerificador()
+{
+  ofstream arqVerificador;
+  ifstream arqAux;
+  string line;
+
+  remove("arquivoVerificador.txt");
+  arqVerificador.open("arquivoVerificador.txt");
+  arqAux.open("segundoArquivoVerificador.txt");
+  if(!arqAux.is_open())
+  {
+    cout << "Erro na abertura do arquivo: segundoArquivoVerificador.txt!!!" << endl;
+    deletandoLabirinto();
+    apagarArquivos();
+  }
+
+  while(arqAux)
+  {
+    getline(arqAux, line);
+    arqVerificador << line;
+    arqVerificador << "\n";
+  }
+  
+  arqVerificador.close();
+  arqAux.close();
+}
+
 void Labirinto::atualizarSegundoArquivoAuxiliar()
 {
   ofstream arqAux;
@@ -153,6 +226,25 @@ void Labirinto::atualizarSegundoArquivoAuxiliar()
     for(int j = 0; j < this->tamLabirinto; j++)
     {
       arqAux << this->labirinto[i][j];
+      arqAux << " ";
+    }
+    arqAux << "\n";
+  }
+  arqAux << "\n";
+  arqAux.close();
+}
+
+void Labirinto::atualizarSegundoArquivoVerificador()
+{
+  ofstream arqAux;
+  
+  arqAux.open("segundoArquivoVerificador.txt", ios::app);
+
+  for(int i = 0; i < this->tamLabirinto; i++)
+  {
+    for(int j = 0; j < this->tamLabirinto; j++)
+    {
+      arqAux << this->verificador[i][j];
       arqAux << " ";
     }
     arqAux << "\n";
@@ -218,7 +310,12 @@ void Labirinto::verificandoParedes(int linha, int coluna)
   {
     if(this->labirinto[linha+1][coluna] == "#"  && this->labirinto[linha+1][coluna-1] == "#"  && this->labirinto[linha][coluna-1] == "#"  && this->labirinto[linha-1][coluna-1] == "#"  && this->labirinto[linha-1][coluna] == "#"  && this->labirinto[linha-1][coluna+1] == "#"  && this->labirinto[linha][coluna+1] == "#"  && this->labirinto[linha+1][coluna+1] == "#")
     {
-      cout << "O garoto não conseguiu sair pois estava cercado nas 8 posições por paredes!!!" << endl;
+      cout << "O garoto não conseguiu sair pois estava cercado nas 8 posições por paredes!!!" << endl << endl;
+      cout << "Casas percorridas ao todo: " << getPassos() << endl;
+    cout << "Soma de itens coletados pelo caminho: " << getItensPegos() << endl;
+    cout << "Número de casas não exploradas no labirinto: " << verificarCasasInexploradas() << endl;
+    cout << "Perigos enfrentados durante o caminho: " << getPerigos() << endl;
+      deletandoLabirinto();
       apagarArquivos();
     }
   }
@@ -226,51 +323,70 @@ void Labirinto::verificandoParedes(int linha, int coluna)
 
 void Labirinto::pegandoValoresLabirinto()
 {
-  ifstream arq;
-  int itensCaminho, aux = 0;
+  ifstream arq, arqVerificador;
+  int itensCaminho;
+  bool aux = 0, condicaoParada = 0;
   
   do
   {
     remove("segundoArquivoAuxiliar.txt");
+    remove("segundoArquivoVerificador.txt");
     itensCaminho = itensPegos;
     
     arq.open("arquivoAuxiliar.txt");
     if(!arq.is_open())
     {
       cout << "Erro na abertura do arquivo: arquivoAuxliar.txt!!!" << endl;
+      deletandoLabirinto();
+      apagarArquivos();
+    }
+    arqVerificador.open("arquivoVerificador.txt");
+    if(!arq.is_open())
+    {
+      cout << "Erro na abertura do arquivo: arquivoVerificador.txt!!!" << endl;
+      deletandoLabirinto();
       apagarArquivos();
     }
     
     for(int k = 0; k < this->numLabirinto; k++)
     {
+      if(aux == 1)
+      {
+        while(condicaoParada == 0)
+        {
+          obtendoPosicaoAleatoria();
+          condicaoParada = verificarPasso(this->linha, this->coluna);
+        }
+        condicaoParada = 0;
+      }
       for(int i = 0; i < this->tamLabirinto; i++)
       {
         for(int j = 0; j < this->tamLabirinto; j++)
         {
           arq >> this->labirinto[i][j];
+          arqVerificador >> this->verificador[i][j];
         }
       }
       if(aux == 0)
       {
         obtendoPosicaoInicial();
-        aux++;
-      }
-      else
-      {
-        obtendoPosicaoAleatoria();
+        aux = 1;
       }
       caminhandoLabirinto();
       atualizarSegundoArquivoAuxiliar();
+      atualizarSegundoArquivoVerificador();
     }
     
     arq.close();
+    arqVerificador.close();
     atualizarArquivoAuxiliar();
-  }while(itensCaminho+this->itensPegos == this->itensPegos);
+    atualizarArquivoVerificador();
+  }while(itensCaminho != this->itensPegos);
 }
 
 void Labirinto::caminhandoLabirinto()
 {
-  int linha, coluna, aux;
+  int linha, coluna;
 
   while(1)
   {
@@ -279,49 +395,66 @@ void Labirinto::caminhandoLabirinto()
 
     if(this->linha+linha >= 0 && this->coluna+coluna >= 0 && this->linha+linha < tamLabirinto && this->coluna+coluna < tamLabirinto)
     {
-      if(this->labirinto[this->linha+linha][this->coluna+coluna] != "#" && (linha != 0 || coluna != 0))
+      if(linha != 0 || coluna != 0)
       {
-        this->passos++;
-        this->linha = this->linha+linha;
-        this->coluna = this->coluna+coluna;
-        if(this->labirinto[this->linha][this->coluna] == "*")
-        {
-          this->vidas--;
-          this->perigos++;
-          verificandoVida();
-        }
-        else
-        {
-          if(this->labirinto[this->linha][this->coluna] != "0")
-          {
-            this->itensPegos++;
-            this->sacola++;
-            verificandoSacola();
-            
-            istringstream(this->labirinto[this->linha][this->coluna]) >> aux;
-            aux--;
-            this->labirinto[this->linha][this->coluna] = to_string(aux);
-          }
-        }
+        verificarPasso(this->linha+linha, this->coluna+coluna);
       }
     }
     else
     {
-      this->passos++;
       return;
     }
   }
+}
+
+bool Labirinto::verificarPasso(int newLinha, int newColuna)
+{
+  int aux;
+  
+  if(this->labirinto[newLinha][newColuna] != "#")
+  {
+    this->passos++;
+    this->linha = newLinha;
+    this->coluna = newColuna;
+    this->verificador[this->linha][this->coluna] = 1;
+    if(this->labirinto[this->linha][this->coluna] == "*")
+    {
+      this->vidas--;
+      this->perigos++;
+      verificandoVida();
+    }
+    else
+    {
+      if(this->labirinto[this->linha][this->coluna] != "0")
+      {
+        this->itensPegos++;
+        this->sacola++;
+        verificandoSacola();
+        
+        istringstream(this->labirinto[this->linha][this->coluna]) >> aux;
+        aux--;
+        this->labirinto[this->linha][this->coluna] = to_string(aux);
+      }
+    }
+    return 1;
+  }
+  return 0;
 }
 
 void Labirinto::verificandoVida()
 {
   if(getVidas() == 0)
   {
+    atualizarSegundoArquivoVerificador();
+    atualizarArquivoVerificador();
+    
     cout << "Fim de jogo!!!" << endl;
     cout << "O garoto infelizmente perdeu todas suas vidas!!!" << endl << endl;
     cout << "Casas percorridas ao todo: " << getPassos() << endl;
-  cout << "Soma de itens coletados pelo caminho: " << getItensPegos() << endl;
+    cout << "Soma de itens coletados pelo caminho: " << getItensPegos() << endl;
+    cout << "Número de casas não exploradas no labirinto: " << verificarCasasInexploradas() << endl;
   cout << "Perigos enfrentados durante o caminho: " << getPerigos() << endl;
+    deletandoLabirinto();
     apagarArquivos();
   }
 }
@@ -340,4 +473,36 @@ void Labirinto::verificandoSacola()
       this->vidas++;
     }
   }
+}
+
+int Labirinto::verificarCasasInexploradas()
+{
+  ifstream arqVerificador;
+  int casasInexploradas = 0;
+  bool aux;
+  
+  arqVerificador.open("arquivoVerificador.txt");
+  if(!arqVerificador.is_open())
+  {
+    cout << "Erro na abertura do arquivo: arquivoVerificador.txt!!!" << endl;
+    deletandoLabirinto();
+    apagarArquivos();
+  }
+
+  for(int k = 0; k < this->numLabirinto; k++)
+  {
+    for(int i = 0; i < this->tamLabirinto; i++)
+    {
+      for(int j = 0; j < this->tamLabirinto; j++)
+      {
+        arqVerificador >> aux;
+        if(aux == 0)
+        {
+          casasInexploradas++;
+        }
+      }
+    }  
+  }
+  arqVerificador.close();
+  return casasInexploradas;
 }
