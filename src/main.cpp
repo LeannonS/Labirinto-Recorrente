@@ -11,13 +11,9 @@ int main()
   l.criandoArquivoVerificador();
   l.criandoLabirinto();
   l.pegandoValoresLabirinto();
-
-  cout << endl << "Casas percorridas ao todo: " << l.getPassos() << endl;
-  cout << "Soma de itens coletados pelo caminho: " << l.getItensPegos() << endl;
-  cout << "Número de casas não exploradas no labirinto: " << l.verificarCasasInexploradas() << endl;
-  cout << "Perigos enfrentados durante o caminho: " << l.getPerigos() << endl;
-
   l.deletandoLabirinto();
+  l.printResultados();
+  
   remove("arquivoAuxiliar.txt");
   remove("segundoArquivoAuxiliar.txt");
   remove("arquivoVerificador.txt");
