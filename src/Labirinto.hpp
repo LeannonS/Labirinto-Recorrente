@@ -51,5 +51,6 @@ class Labirinto
     void verificandoSacola();
     bool verificarPasso(int newLinha, int newColuna);
     int verificarCasasInexploradas();
+    void printResultados();
 };
 #endif
