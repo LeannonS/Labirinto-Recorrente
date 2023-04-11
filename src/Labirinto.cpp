@@ -509,6 +509,7 @@ int Labirinto::verificarCasasInexploradas()
 
 void Labirinto::printResultados()
 {
+  cout << endl << "Vitória!!!" << endl;
   cout << endl << "Casas percorridas ao todo: " << getPassos() << endl;
   cout << "Soma de itens coletados pelo caminho: " << getItensPegos() << endl;
   cout << "Número de casas não exploradas no labirinto: " << verificarCasasInexploradas() << endl;
