@@ -96,7 +96,7 @@ void Labirinto::apagarArquivos()
   remove("arquivoVerificador.txt");
   remove("segundoArquivoVerificador.txt");
   
-  exit(1);
+  exit(0);
 }
 
 void Labirinto::criandoArquivoAuxiliar()
@@ -105,11 +105,11 @@ void Labirinto::criandoArquivoAuxiliar()
   ifstream arq;
   string line;
 
-  arq.open("input.data");
+  arq.open("./dataset/input.data");
   if(!arq.is_open())
   {
     cout << "Erro na abertura do arquivo: input.data!!!" << endl;
-    exit(1);
+    exit(0);
   }
   arqAux.open("arquivoAuxiliar.txt");
 
@@ -138,11 +138,11 @@ void Labirinto::criandoArquivoVerificador()
   char ch;
   string line;
 
-  arq.open("input.data");
+  arq.open("./dataset/input.data");
   if(!arq.is_open())
   {
     cout << "Erro na abertura do arquivo: input.data!!!" << endl;
-    exit(1);
+    exit(0);
   }
   arqVerificador.open("arquivoVerificador.txt");
 
@@ -505,4 +505,12 @@ int Labirinto::verificarCasasInexploradas()
   }
   arqVerificador.close();
   return casasInexploradas;
+}
+
+void Labirinto::printResultados()
+{
+  cout << endl << "Casas percorridas ao todo: " << getPassos() << endl;
+  cout << "Soma de itens coletados pelo caminho: " << getItensPegos() << endl;
+  cout << "Número de casas não exploradas no labirinto: " << verificarCasasInexploradas() << endl;
+  cout << "Perigos enfrentados durante o caminho: " << getPerigos() << endl;
 }
