@@ -15,7 +15,7 @@ class Labirinto
 
   public:
 
-	  Labirinto(int vidas, int passos, int itensPegos,int perigos, int sacola);
+    Labirinto(int vidas, int passos, int itensPegos,int perigos, int sacola);
     Labirinto();
 
     void setVidas(int vidas);
