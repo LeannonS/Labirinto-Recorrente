@@ -12,11 +12,11 @@ int main()
   l.criandoLabirinto();
   l.pegandoValoresLabirinto();
   l.deletandoLabirinto();
+  cout << endl << "Vitória!!!" << endl;
   l.printResultados();
   
   remove("arquivoAuxiliar.txt");
   remove("segundoArquivoAuxiliar.txt");
-  remove("arquivoVerificador.txt");
   remove("segundoArquivoVerificador.txt");
   
   return 0;
