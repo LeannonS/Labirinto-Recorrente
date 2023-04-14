@@ -93,7 +93,6 @@ void Labirinto::apagarArquivos()
 {
   remove("arquivoAuxiliar.txt");
   remove("segundoArquivoAuxiliar.txt");
-  remove("arquivoVerificador.txt");
   remove("segundoArquivoVerificador.txt");
   
   exit(0);
@@ -350,15 +349,6 @@ void Labirinto::pegandoValoresLabirinto()
     
     for(int k = 0; k < this->numLabirinto; k++)
     {
-      if(aux == 1)
-      {
-        while(condicaoParada == 0)
-        {
-          obtendoPosicaoAleatoria();
-          condicaoParada = verificarPasso(this->linha, this->coluna);
-        }
-        condicaoParada = 0;
-      }
       for(int i = 0; i < this->tamLabirinto; i++)
       {
         for(int j = 0; j < this->tamLabirinto; j++)
@@ -367,7 +357,19 @@ void Labirinto::pegandoValoresLabirinto()
           arqVerificador >> this->verificador[i][j];
         }
       }
-      if(aux == 0)
+      if(aux == 1)
+      {
+        if(getVidas() != 0)
+        {
+          while(condicaoParada == 0)
+          {
+            obtendoPosicaoAleatoria();
+            condicaoParada = verificarPasso(this->linha, this->coluna);
+          }
+        }
+        condicaoParada = 0;
+      }
+      else
       {
         obtendoPosicaoInicial();
         aux = 1;
@@ -381,6 +383,14 @@ void Labirinto::pegandoValoresLabirinto()
     arqVerificador.close();
     atualizarArquivoAuxiliar();
     atualizarArquivoVerificador();
+    if(getVidas() == 0)
+    {
+      cout << endl << "Fim de jogo!!!" << endl;
+      cout << "O garoto infelizmente perdeu todas suas vidas!!!" << endl;
+      printResultados();
+      deletandoLabirinto();
+      apagarArquivos();
+    }
   }while(itensCaminho != this->itensPegos);
 }
 
@@ -390,6 +400,10 @@ void Labirinto::caminhandoLabirinto()
 
   while(1)
   {
+    if(getVidas() == 0)
+    {
+      return;
+    }
     linha = (rand()%3)-1;
     coluna = (rand()%3)-1;
 
@@ -421,7 +435,6 @@ bool Labirinto::verificarPasso(int newLinha, int newColuna)
     {
       this->vidas--;
       this->perigos++;
-      verificandoVida();
     }
     else
     {
@@ -439,24 +452,6 @@ bool Labirinto::verificarPasso(int newLinha, int newColuna)
     return 1;
   }
   return 0;
-}
-
-void Labirinto::verificandoVida()
-{
-  if(getVidas() == 0)
-  {
-    atualizarSegundoArquivoVerificador();
-    atualizarArquivoVerificador();
-    
-    cout << "Fim de jogo!!!" << endl;
-    cout << "O garoto infelizmente perdeu todas suas vidas!!!" << endl << endl;
-    cout << "Casas percorridas ao todo: " << getPassos() << endl;
-    cout << "Soma de itens coletados pelo caminho: " << getItensPegos() << endl;
-    cout << "Número de casas não exploradas no labirinto: " << verificarCasasInexploradas() << endl;
-  cout << "Perigos enfrentados durante o caminho: " << getPerigos() << endl;
-    deletandoLabirinto();
-    apagarArquivos();
-  }
 }
 
 void Labirinto::verificandoSacola()
@@ -509,7 +504,6 @@ int Labirinto::verificarCasasInexploradas()
 
 void Labirinto::printResultados()
 {
-  cout << endl << "Vitória!!!" << endl;
   cout << endl << "Casas percorridas ao todo: " << getPassos() << endl;
   cout << "Soma de itens coletados pelo caminho: " << getItensPegos() << endl;
   cout << "Número de casas não exploradas no labirinto: " << verificarCasasInexploradas() << endl;
