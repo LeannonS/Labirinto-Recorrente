@@ -15,7 +15,7 @@ class Labirinto
 
   public:
 
-    Labirinto(int vidas, int passos, int itensPegos,int perigos, int sacola);
+	  Labirinto(int vidas, int passos, int itensPegos,int perigos, int sacola);
     Labirinto();
 
     void setVidas(int vidas);
@@ -47,7 +47,6 @@ class Labirinto
 
     void pegandoValoresLabirinto();
     void caminhandoLabirinto();
-    void verificandoVida();
     void verificandoSacola();
     bool verificarPasso(int newLinha, int newColuna);
     int verificarCasasInexploradas();
