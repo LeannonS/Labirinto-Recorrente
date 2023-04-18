@@ -27,11 +27,15 @@ O sistema fará a leitura desses labirintos, obtidas pelo arquivo input.data, e 
 ```Casos Especiais: ``` </p>
 
 - Caso o usuário insira a posição inicial, ou então, após cair em um portal o garoto fique cercado de paredes, o código retornará que infelizmente o garoto não conseguiu escapar, pois foi impossível seguir a sua jornada pelos labirintos.
+
+## Implementação
+ 
+
  
 ## Arquivos
 
 * ```main.cpp```: Arquivo e função principal do código;
-* ```input.data```: Matrizes a serem utilizadas;
+* ```input.data```: Labirintos a serem utilizadas;
 * ```Makefile```: Automatiza processos de compilação;
 * ```ArquivoVerificador.txt```: Arquivo criado durante a execução do algoritimo, tal arquivo verificará as casas que o garoto andou;
 
@@ -61,6 +65,18 @@ O sistema fará a leitura desses labirintos, obtidas pelo arquivo input.data, e 
 * ```void printResultados()```: Mostra todos os resultados obtidos pelo caminho como, perigos enfrentados, casas percorridas, casas não exploradas e número de itens pegos.
 
 ## Exemplos de compilação
+
+Na imagem a seguir temos um exemplo de 3 labirintos de tamanho 4x4, obtidos através do arquivo input.data.
+
+![Labirinto 4x4x3](https://user-images.githubusercontent.com/118322766/232927513-02b92b36-ab38-4081-a163-19f1b148f098.jpeg)
+
+Após obter os labirintos que serão utilizados, o programa mostrará 
+
+imagem
+
+- 
+
+## Conclusão
 
 
 
