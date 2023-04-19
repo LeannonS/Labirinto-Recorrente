@@ -8,6 +8,12 @@ O sistema fará a leitura desses labirintos, obtidas pelo arquivo input.data, e 
 
 ![Labirinto-Exemplo](https://user-images.githubusercontent.com/118322766/232914381-9569c6c1-b785-4ac5-b68c-62406cac4b31.jpeg)
 
+Vamos supor que o garoto saiu da posição [0,1] e logo em seguida, andou para a posição [1,0] e depois para a posição [2,0], o labirinto será atualizado, como mostrado na imagem a seguir: 
+
+![Atualização do labirinto](https://user-images.githubusercontent.com/118322766/233205684-f5f39ca0-5320-4609-bfc7-61c2d07ee321.jpeg)<br>
+
+- O garoto está sendo representado pela letra G no exemplo acima.</p>
+
 ```Movimentações: ``` </p>
 
 - Caso o garoto ande para uma casa com número: ele vai obter um item e colocar em uma sacola, o limite máximo da sacola é de 4 itens.
@@ -18,7 +24,8 @@ O sistema fará a leitura desses labirintos, obtidas pelo arquivo input.data, e 
 ```Regras Basicas: ``` </p>
 
 - O garoto sempre começa com 10 vidas e não pode exceder este limite.
-- Quando o garoto pisar em uma casa com número, ele vai pegar um item daquela posição, ou seja, se o mesmo andar para uma casa com o número 2, após obter o item a posição irá ficar com o número 1.
+- O garoto deve sempre andar de forma randômica pelo labirinto.
+- Quando o garoto pisar em uma casa com número, ele vai pegar um item daquela posição, como na segunda imagem mostrada.
 - Caso o garoto ande em uma casa com número 0 (Linha 2 e Coluna 1 da imagem acima), nada vai acontecer.
 - Quando o garoto estiver com quatro itens na sacola ele irá ganhar uma vida caso tenha menos que 10, ou então, caso esteja com as 10 vidas, ele vai perder todos itens.
 - Caso o garoto perca todas as vidas o jogo acaba com a sua derrota.
@@ -30,11 +37,16 @@ O sistema fará a leitura desses labirintos, obtidas pelo arquivo input.data, e 
 
 ## Implementação
  
-
+- Para poder caminhar, foi criado uma matriz do mesmo tamanho do labirinto, foram criados também 2 arquivos auxiliares, o primeiro arquivo recebia todas os labirintos que foram passados para a execução do programa, o segundo arquivo inicialmente era criado sem nada escrito. Após a criação dos 2 arquivos, a matriz criada recebia o primeiro labirinto escrito no primeiro arquivo auxiliar. Logo, o garoto caminhava de forma randômica pelo labirinto, coletando os itens encontrados pelo caminho e atualizando a matriz, com a matriz atualizada depois dos itens coletados, a mesma era salva no segundo arquivo auxiliar, em seguida, se repetia o mesmo passo com todos os labirintos listados no primeiro arquivo auxiliar, e após o segundo arquivo auxiliar estar com todas os labirintos atualizados, o primeiro arquivo auxiliar era limpo e recebia todos os labirintos do segundo arquivo auxiliar, em seguida, o segundo arquivo auxiliar também era limpo, e este processo era repetido até o garoto vencer ou perder o jogo.
+- Para o caminhamento de forma randômica, foi criado duas variáveis que recebiam um valor aleatório de -1 a 1, onde a primeira representava a linha e a segunda representava a coluna.
+- Para obter resultados como: quantas casas foram percorridas, itens coletados pelo caminho e perigos enfrentados, foram criadas uma variável para cada caso, onde sempre que o garoto enfrentava um perigo ou outro caso, a variável do caso ocorrido era incrementada em uma unidade.
+- Para obter o número de casas inexploradas, foram criados 2 arquivos auxiliares e uma matriz de 0 e 1 para representar as casas não exploradas, onde havia 0 a casa não havia sido explorada e onde havia 1 a casa teria sido explorada (paredes nunca são exploradas então sempre contém 0 em sua posição). Logo em seguida, era usado o mesmo processo para poder caminhar pelo labirinto,
  
 ## Arquivos
 
 * ```main.cpp```: Arquivo e função principal do código;
+* ```Labirinto.hpp```: Criação das funções utilizadas;
+* ```Labirinto.cpp```: Implementação das funções descritas no arquivo hpp;
 * ```input.data```: Labirintos a serem utilizadas;
 * ```Makefile```: Automatiza processos de compilação;
 * ```ArquivoVerificador.txt```: Arquivo criado durante a execução do algoritimo, tal arquivo verificará as casas que o garoto andou;
@@ -70,11 +82,11 @@ Na imagem a seguir temos um exemplo de 3 labirintos de tamanho 4x4, obtidos atra
 
 ![Labirinto 4x4x3](https://user-images.githubusercontent.com/118322766/232927513-02b92b36-ab38-4081-a163-19f1b148f098.jpeg)
 
-Após obter os labirintos que serão utilizados, o programa mostrará 
+Após obter os labirintos que serão utilizados, o programa inicialmente irá pedir para o usuário digitar a linha e a coluna para a posição inicial, como mostrado no exemplo abaixo foi escolhido a posição [2,2], logo em seguida, é mostrado o fim do jogo e os resultados. Veja o exemplo abaixo: 
 
-imagem
+![Resultados](https://user-images.githubusercontent.com/118322766/233192324-93e7ee08-72b0-4b8c-a2fb-5431d8a36415.jpeg)
 
-- 
+No exemplo acima, o garoto infelizmente não conseguiu completar a sua missão pois o mesmo perdeu todas suas vidas, logo após avisar sobre sua derrota, foi listado abaixo todos os dados de sua jornada como as casas percorridas, os itens coletados pelo caminho, as casas não exploradas e os perigos enfrentados.
 
 ## Conclusão
 
