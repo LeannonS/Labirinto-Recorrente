@@ -6,7 +6,7 @@ O programa receberá através de um arquivo chamado input.data, um número K de 
 
 O sistema fará a leitura desses labirintos, obtidas pelo arquivo input.data, e logo começará a partir de um ponto inicial selecionado pelo usuário, andar com o garoto pelos labirintos de forma randômica. Ao caminhar pelos labirintos, o programa deveráandar de forma aleatória entre 8 direções, sendo elas todas casas ao redor do garoto. A imagem abaixo demonstra, como é a estrutura de um labirinto, todas as possibilidades que o garoto pode encontrar em seu caminho e as direções que o mesmo pode andar:
 
-![Direções](https://user-images.githubusercontent.com/118322766/233220639-002fe992-0783-4dc4-929c-53eb24005215.png)<br>
+![ExDireções](https://user-images.githubusercontent.com/118322766/233220639-002fe992-0783-4dc4-929c-53eb24005215.png)<br>
 imagem 1
 
 Vamos supor que o garoto saiu da posição [0,1] e logo em seguida, andou para a posição [1,0] e depois para a posição [2,0], o labirinto será atualizado, como mostrado na imagem a seguir: 
@@ -21,7 +21,7 @@ imagem 2
 - Caso o garoto ande para uma casa com número: ele vai obter um item e colocar em uma sacola, o limite máximo da sacola é de 4 itens.
 - Caso o garoto ande para uma casa com * (Linha 2 e Coluna 3 da imagem 1): ele perderá 1 vida.
 - Caso o garoto ande para uma casa com # (Linha 2 e Coluna 2 da imagem 1): ele não pode avançar e deve andar por outro caminho.
-- Caso o garoto ande para fora dos limites do labirinto (Ande para cima da posição atual): ele cairá em um portal e será teletransportado para o próximo labirinto.
+- Caso o garoto ande para fora dos limites do labirinto (Caso ande para cima, imagem 1): ele cairá em um portal e será teletransportado para o próximo labirinto.
 
 ```Regras Basicas: ``` </p>
 
