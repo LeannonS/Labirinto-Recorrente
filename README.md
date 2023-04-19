@@ -41,6 +41,7 @@ Vamos supor que o garoto saiu da posição [0,1] e logo em seguida, andou para a
 - Para o caminhamento de forma randômica, foi criado duas variáveis que recebiam um valor aleatório de -1 a 1, onde a primeira representava a linha e a segunda representava a coluna, e depois a linha e coluna que o garoto se encontrava, eram somadas com as variáveis contendo o valor aleatório gerado.
 - Para obter resultados como: quantas casas foram percorridas, itens coletados pelo caminho e perigos enfrentados, foram criadas uma variável para cada caso, onde sempre que o garoto enfrentava um perigo ou outro caso, a variável do caso ocorrido era incrementada em uma unidade.
 - Para obter o número de casas inexploradas, foram criados 2 arquivos auxiliares e uma matriz de 0 e 1 para representar as casas não exploradas, onde havia 0 a casa não havia sido explorada e onde havia 1 a casa teria sido explorada (paredes nunca são exploradas então sempre contém 0 em sua posição). Logo em seguida, era usado o mesmo processo para poder caminhar pelo labirinto, e no final da execução do programa, era contado todos os 0 dos labirintos salvos no primeiro arquivo auxiliar.
+- A posição inicial selecionada pelo usuário, não será considerada como uma ação no primeiro contato do garoto com o labirinto, logo ele não sofrerá dano caso haja um perigo e nem mesmo coletará o item caso haja na casa selecionada, porém o usuário não pode selecionar um local com parade pois o mesmo será desconsiderado.
  
 ## Arquivos
 
