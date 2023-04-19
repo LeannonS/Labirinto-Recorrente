@@ -91,7 +91,8 @@ No exemplo acima, o garoto infelizmente não conseguiu completar a sua missão p
 
 ## Conclusão
 
-
+O programa funciona corretamente como foi esperado, porém não é viável realizar a análise do custo computacional da estratégia randômica, o mesmo não é possível pois como ela é feita de forma aleatória, pode se ocorrer que após uma execição o garoto ande apenas para a direita deixando assim, um menor custo computacional se comparado com uma execução que o garoto ficou dando voltas pelos labirintos.</p>
+Ademais, a estgratégia utilizada para salvar os labirintos em um arquivo, provou-se ser uma ótima escolha pois, desta forma não é preciso criar uma matriz tridimensional para salvar todos os labirintos, evitando assim, maiores chances de estourar a memória com a alocação dinâmica de matrizes.
 
 ## Compilação e Execução
 
