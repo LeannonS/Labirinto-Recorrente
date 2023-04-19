@@ -14,19 +14,21 @@ Vamos supor que o garoto saiu da posição [0,1] e logo em seguida, andou para a
 ![Caminhamento](https://user-images.githubusercontent.com/118322766/233205684-f5f39ca0-5320-4609-bfc7-61c2d07ee321.jpeg)<br>
 imagem 2
 
-- O garoto está sendo representado pela letra G no exemplo acima.</p>
+- O garoto está sendo representado pela letra G na imagem 2.</p>
 
 ```Movimentações: ``` </p>
 
 - Caso o garoto ande para uma casa com número: ele vai obter um item e colocar em uma sacola, o limite máximo da sacola é de 4 itens.
 - Caso o garoto ande para uma casa com * (Linha 2 e Coluna 3 da imagem 1): ele perderá 1 vida.
 - Caso o garoto ande para uma casa com # (Linha 2 e Coluna 2 da imagem 1): ele não pode avançar e deve andar por outro caminho.
-- Caso o garoto ande para fora dos limites do labirinto (Caso ande para cima, imagem 1): ele cairá em um portal e será teletransportado para o próximo labirinto.
+- Caso o garoto ande para fora dos limites do labirinto (Um exemplo: ande para cima, imagem 1): ele cairá em um portal e será teletransportado para o próximo labirinto.
 
 ```Regras Basicas: ``` </p>
 
 - O garoto sempre começa com 10 vidas e não pode exceder este limite.
 - O garoto deve sempre andar de forma randômica pelo labirinto.
+- Os labirintos estão sempre cercados de portais que levam para o próximo, então caso o garoto sair dos limites de algum labirinto, não importa o lado que ele sair, o mesmo sempre será enviado para o próximo labirinto.
+- Caso o garoto esteja no último labirinto, e acabe caindo em um portal, ele será teletransportado de volta para o primeiro labirinto.
 - Quando o garoto pisar em uma casa com número, ele vai pegar um item daquela posição, como na imagem 2.
 - Caso o garoto ande em uma casa com número 0 (Linha 2 e Coluna 1 da imagem 1), nada vai acontecer.
 - Quando o garoto estiver com quatro itens na sacola ele irá ganhar uma vida caso tenha menos que 10, ou então, caso esteja com as 10 vidas, ele vai perder todos itens.
@@ -85,7 +87,7 @@ Na imagem a seguir temos um exemplo de 3 labirintos de tamanho 4x4, obtidos atra
 
 ![Labirintos](https://user-images.githubusercontent.com/118322766/232927513-02b92b36-ab38-4081-a163-19f1b148f098.jpeg)
 
-Após obter os labirintos que serão utilizados, o programa inicialmente irá pedir para o usuário digitar a linha e a coluna para a posição inicial, como mostrado no exemplo abaixo foi escolhido a posição [2,2], logo em seguida, é mostrado o fim do jogo e os resultados. Veja o exemplo abaixo: 
+Após obter os labirintos que serão utilizados, o programa inicialmente irá pedir para o usuário digitar a linha e a coluna para a posição inicial, como mostrado no exemplo abaixo foi escolhido a posição [2,2], logo em seguida, é mostrado o fim do jogo e os resultados. Veja o exemplo a seguir: 
 
 ![Resultados](https://user-images.githubusercontent.com/118322766/233192324-93e7ee08-72b0-4b8c-a2fb-5431d8a36415.jpeg)
 
