@@ -6,11 +6,11 @@ O programa receberá através de um arquivo chamado input.data, um número K de 
 
 O sistema fará a leitura desses labirintos, obtidas pelo arquivo input.data, e logo começará a partir de um ponto inicial selecionado pelo usuário, andar com o garoto pelos labirintos de forma randômica. Ao caminhar pelos labirintos, o programa deveráandar de forma aleatória entre 8 direções, sendo elas todas casas ao redor do garoto. A imagem abaixo demonstra, como é a estrutura de um labirinto, todas as possibilidades que o garoto pode encontrar em seu caminho e as direções que o mesmo pode andar:
 
-![Labirinto-Exemplo](https://user-images.githubusercontent.com/118322766/232914381-9569c6c1-b785-4ac5-b68c-62406cac4b31.jpeg)
+![Direções](https://user-images.githubusercontent.com/118322766/232914381-9569c6c1-b785-4ac5-b68c-62406cac4b31.jpeg)
 
 Vamos supor que o garoto saiu da posição [0,1] e logo em seguida, andou para a posição [1,0] e depois para a posição [2,0], o labirinto será atualizado, como mostrado na imagem a seguir: 
 
-![Atualização do labirinto](https://user-images.githubusercontent.com/118322766/233205684-f5f39ca0-5320-4609-bfc7-61c2d07ee321.jpeg)<br>
+![Caminhamento](https://user-images.githubusercontent.com/118322766/233205684-f5f39ca0-5320-4609-bfc7-61c2d07ee321.jpeg)<br>
 
 - O garoto está sendo representado pela letra G no exemplo acima.</p>
 
@@ -81,7 +81,7 @@ Vamos supor que o garoto saiu da posição [0,1] e logo em seguida, andou para a
 
 Na imagem a seguir temos um exemplo de 3 labirintos de tamanho 4x4, obtidos através do arquivo input.data.
 
-![Labirinto 4x4x3](https://user-images.githubusercontent.com/118322766/232927513-02b92b36-ab38-4081-a163-19f1b148f098.jpeg)
+![Labirintos](https://user-images.githubusercontent.com/118322766/232927513-02b92b36-ab38-4081-a163-19f1b148f098.jpeg)
 
 Após obter os labirintos que serão utilizados, o programa inicialmente irá pedir para o usuário digitar a linha e a coluna para a posição inicial, como mostrado no exemplo abaixo foi escolhido a posição [2,2], logo em seguida, é mostrado o fim do jogo e os resultados. Veja o exemplo abaixo: 
 
